@@ -10,11 +10,18 @@ The sum of these multiples is 23.
 Find the sum of all the multiples of 3 or 5 below 1000.
 */
 
-fun solveTotalMultiples(firstMultiple:Int, secondMultiple:Int, limitNumber:Int){
-    var listOfFirstMultiples = buildMultiplesList(firstMultiple, limitNumber)
-    var listOfSecondMultiples = buildMultiplesList(secondMultiple, limitNumber)
+/*
+Solved by Ryan Wren for the first time on 8-30-24
+*/
 
 
+fun solveTotalMultiples(firstMultiple:Int, secondMultiple:Int, limitNumber:Int): Int{
+    val listOfFirstMultiples = buildMultiplesList(firstMultiple, limitNumber)
+    val listOfSecondMultiples = buildMultiplesList(secondMultiple, limitNumber)
+    val listOfMutualMultiples = calculateMutualMultiples(firstMultiple, listOfSecondMultiples, limitNumber)
+
+    //Mutual multiples appear in both lists. Subtract once to remove repeated count.
+    return (listOfFirstMultiples.sum() + listOfSecondMultiples.sum()) - listOfMutualMultiples.sum()
 }
 
 fun buildMultiplesList(multiple:Int, limitNumber:Int): ArrayList<Int>{
@@ -32,4 +39,20 @@ fun buildMultiplesList(multiple:Int, limitNumber:Int): ArrayList<Int>{
     }
 
     return listOfMultiples
+}
+
+fun calculateMutualMultiples(firstMultiple:Int, listOfSecondMultiples:ArrayList<Int>, limitNumber:Int): ArrayList<Int>{
+    val listOfDuplicates = ArrayList<Int>()
+    var currentMultiple = 0
+
+    for (secondMultipleItem in listOfSecondMultiples){
+        currentMultiple = firstMultiple * secondMultipleItem
+        if (currentMultiple < limitNumber){
+            listOfDuplicates.add(currentMultiple)
+        } else{
+            break
+        }
+    }
+
+    return listOfDuplicates
 }
