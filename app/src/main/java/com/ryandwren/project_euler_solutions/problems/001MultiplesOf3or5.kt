@@ -56,3 +56,16 @@ fun calculateMutualMultiples(firstMultiple:Int, listOfSecondMultiples:ArrayList<
 
     return listOfDuplicates
 }
+
+fun eulersAnswer(firstMultiple:Int, secondMultiple:Int, limitNumber:Int): Int {
+    val firstSum = eulersCalcMultipleSum(firstMultiple, limitNumber)
+    val secondSum = eulersCalcMultipleSum(secondMultiple, limitNumber)
+    val mutualSum = eulersCalcMultipleSum((firstMultiple * secondMultiple), limitNumber)
+
+    return firstSum + secondSum - mutualSum
+}
+
+fun eulersCalcMultipleSum(multiple:Int, limitNumber:Int): Int {
+    val numOfMultiples = (limitNumber -1) / multiple
+    return (multiple * (numOfMultiples * (numOfMultiples+1))) /2
+}

@@ -26,6 +26,7 @@ import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.ryandwren.project_euler_solutions.problems.eulersAnswer
 import com.ryandwren.project_euler_solutions.problems.solveTotalMultiples
 
 @Composable
@@ -60,10 +61,16 @@ fun MainScreen(){
 
             AnimatedVisibility(visible = expanded) {
                 var answer: Int? by remember{ mutableStateOf(null) }
+                var eulersAnswer: Int? by remember{ mutableStateOf(null) }
                 Column {
                     Button(
                         onClick = {
                             answer = solveTotalMultiples(
+                                firstMultiple = 3,
+                                secondMultiple = 5,
+                                limitNumber = 1000
+                            )
+                            eulersAnswer = eulersAnswer(
                                 firstMultiple = 3,
                                 secondMultiple = 5,
                                 limitNumber = 1000
@@ -74,8 +81,13 @@ fun MainScreen(){
                         }
                     )
                     AnimatedVisibility(visible = (answer != null)) {
-                        SelectionContainer {
-                            Text(text = answer.toString())
+                        Column{
+                            SelectionContainer {
+                                Text(text = "My answer: " + answer.toString())
+                            }
+                            SelectionContainer {
+                                Text(text = "Eulers answer: " + eulersAnswer.toString())
+                            }
                         }
                     }
                 }
