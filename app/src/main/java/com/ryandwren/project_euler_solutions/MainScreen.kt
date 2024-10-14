@@ -38,57 +38,62 @@ fun MainScreen(){
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         item {
-            var expanded by remember { mutableStateOf(false) }
-            Row (
-                horizontalArrangement = Arrangement.SpaceBetween,
-                modifier = Modifier
-                    .clickable {
-                        expanded = !expanded
-                    }
-                    .padding(16.dp)
-            ) {
-                Text(
-                    text = "Problem 1: Multiples of 3 or 5",
-                    modifier = Modifier.weight(1f)
-                )
+            problemCard()
+        }
+    }
+}
 
-                Image(
-                    painter = painterResource(id = R.drawable.nav_arrow_down),
-                    contentDescription = "min",
-                    modifier = if (expanded) Modifier.rotate(180f) else Modifier
-                )
+@Composable
+fun problemCard(){
+    var expanded by remember { mutableStateOf(false) }
+    Row (
+        horizontalArrangement = Arrangement.SpaceBetween,
+        modifier = Modifier
+            .clickable {
+                expanded = !expanded
             }
+            .padding(16.dp)
+    ) {
+        Text(
+            text = "Problem 1: Multiples of 3 or 5",
+            modifier = Modifier.weight(1f)
+        )
 
-            AnimatedVisibility(visible = expanded) {
-                var answer: Int? by remember{ mutableStateOf(null) }
-                var eulersAnswer: Int? by remember{ mutableStateOf(null) }
-                Column {
-                    Button(
-                        onClick = {
-                            answer = solveTotalMultiples(
-                                firstMultiple = 3,
-                                secondMultiple = 5,
-                                limitNumber = 1000
-                            )
-                            eulersAnswer = eulersAnswer(
-                                firstMultiple = 3,
-                                secondMultiple = 5,
-                                limitNumber = 1000
-                            )
-                        },
-                        content = {
-                            Text(text = "Calculate" )
-                        }
+        Image(
+            painter = painterResource(id = R.drawable.nav_arrow_down),
+            contentDescription = "min",
+            modifier = if (expanded) Modifier.rotate(180f) else Modifier
+        )
+    }
+
+    AnimatedVisibility(visible = expanded) {
+        var answer: Int? by remember{ mutableStateOf(null) }
+        var eulersAnswer: Int? by remember{ mutableStateOf(null) }
+        Column {
+            Button(
+                onClick = {
+                    answer = solveTotalMultiples(
+                        firstMultiple = 3,
+                        secondMultiple = 5,
+                        limitNumber = 1000
                     )
-                    AnimatedVisibility(visible = (answer != null)) {
-                        Column{
-                            SelectionContainer {
-                                Text(text = "My answer: " + answer.toString())
-                            }
-                            SelectionContainer {
-                                Text(text = "Eulers answer: " + eulersAnswer.toString())
-                            }
-                        }
+                    eulersAnswer = eulersAnswer(
+                        firstMultiple = 3,
+                        secondMultiple = 5,
+                        limitNumber = 1000
+                    )
+                },
+                content = {
+                    Text(text = "Calculate" )
+                }
+            )
+            AnimatedVisibility(visible = (answer != null)) {
+                Column{
+                    SelectionContainer {
+                        Text(text = "My answer: " + answer.toString())
+                    }
+                    SelectionContainer {
+                        Text(text = "Eulers answer: " + eulersAnswer.toString())
                     }
                 }
             }
