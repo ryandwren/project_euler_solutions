@@ -26,8 +26,9 @@ import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.ryandwren.project_euler_solutions.problems.ProblemObject
 import com.ryandwren.project_euler_solutions.problems.eulersAnswer
-import com.ryandwren.project_euler_solutions.problems.solveTotalMultiples
+import com.ryandwren.project_euler_solutions.problems.problemData
 
 @Composable
 fun MainScreen(){
@@ -37,14 +38,16 @@ fun MainScreen(){
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        item {
-            problemCard()
+        for (problem in problemData){
+            item {
+                problemCard(problem)
+            }
         }
     }
 }
 
 @Composable
-fun problemCard(){
+fun problemCard(problem: ProblemObject){
     var expanded by remember { mutableStateOf(false) }
     Row (
         horizontalArrangement = Arrangement.SpaceBetween,
@@ -55,7 +58,7 @@ fun problemCard(){
             .padding(16.dp)
     ) {
         Text(
-            text = "Problem 1: Multiples of 3 or 5",
+            text = problem.title,
             modifier = Modifier.weight(1f)
         )
 
@@ -67,21 +70,12 @@ fun problemCard(){
     }
 
     AnimatedVisibility(visible = expanded) {
-        var answer: Int? by remember{ mutableStateOf(null) }
-        var eulersAnswer: Int? by remember{ mutableStateOf(null) }
+        var answer: Any? by remember{ mutableStateOf(null) }
+        //var eulersAnswer: Int? by remember{ mutableStateOf(null) }
         Column {
             Button(
                 onClick = {
-                    answer = solveTotalMultiples(
-                        firstMultiple = 3,
-                        secondMultiple = 5,
-                        limitNumber = 1000
-                    )
-                    eulersAnswer = eulersAnswer(
-                        firstMultiple = 3,
-                        secondMultiple = 5,
-                        limitNumber = 1000
-                    )
+                    answer = problem.calculate.invoke()
                 },
                 content = {
                     Text(text = "Calculate" )
@@ -92,9 +86,9 @@ fun problemCard(){
                     SelectionContainer {
                         Text(text = "My answer: " + answer.toString())
                     }
-                    SelectionContainer {
+                    /*SelectionContainer {
                         Text(text = "Eulers answer: " + eulersAnswer.toString())
-                    }
+                    }*/
                 }
             }
         }
