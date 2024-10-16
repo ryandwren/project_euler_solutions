@@ -16,5 +16,11 @@ val problemData = listOf(
         calculate = {
             return@ProblemObject calcEvenFibonacciNumbers()
         }
+    ),
+    ProblemObject(
+        title = "Problem 3: Largest Prime Factor",
+        calculate = {
+            return@ProblemObject calcLargestPrimeFactor(600851475143UL)
+        }
     )
 )
