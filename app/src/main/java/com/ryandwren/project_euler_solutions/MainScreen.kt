@@ -14,6 +14,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.text.selection.SelectionContainer
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -72,11 +73,19 @@ fun problemCard(problem: ProblemObject){
     AnimatedVisibility(visible = expanded) {
         var answer: Any? by remember{ mutableStateOf(null) }
         var eulersAnswer: Any? by remember{ mutableStateOf(null) }
+        var userOverride by remember { mutableStateOf("") }
         Column {
+
+            OutlinedTextField(
+                value = userOverride,
+                onValueChange = { userOverride = it },
+                label = { Text("Optional Input") }
+            )
+
             Button(
                 onClick = {
                     answer = problem.calculate.invoke()
-                    eulersAnswer = problem.calculateEulers?.invoke()
+                    eulersAnswer = problem.calculateEulers?.invoke(userOverride.ifEmpty { null })
                 },
                 content = {
                     Text(text = "Calculate" )

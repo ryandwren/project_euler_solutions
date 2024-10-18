@@ -22,7 +22,12 @@ val problemData = listOf(
         calculate = {
             return@ProblemObject calcLargestPrimeFactor(600851475143UL)
         },
-        calculateEulers = {
+        calculateEulers = { override: Any? ->
+            if (override != null) {
+                if (override is ULong){
+                    return@ProblemObject eulersCalcLargestPrimeFactor(override)
+                }
+            }
             return@ProblemObject eulersCalcLargestPrimeFactor(600851475143UL)
         }
     )
