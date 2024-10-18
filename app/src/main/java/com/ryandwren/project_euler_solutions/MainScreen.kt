@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.text.selection.SelectionContainer
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
@@ -25,10 +26,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.ryandwren.project_euler_solutions.problems.ProblemObject
-import com.ryandwren.project_euler_solutions.problems.eulersAnswer
 import com.ryandwren.project_euler_solutions.problems.problemData
 
 @Composable
@@ -76,21 +77,30 @@ fun problemCard(problem: ProblemObject){
         var userOverride by remember { mutableStateOf("") }
         Column {
 
-            OutlinedTextField(
-                value = userOverride,
-                onValueChange = { userOverride = it },
-                label = { Text("Optional Input") }
-            )
-
-            Button(
-                onClick = {
-                    answer = problem.calculate.invoke()
-                    eulersAnswer = problem.calculateEulers?.invoke(userOverride.ifEmpty { null })
-                },
-                content = {
-                    Text(text = "Calculate" )
+            Row(
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                AnimatedVisibility(problem.sanitizeInput != null) {
+                    OutlinedTextField(
+                        value = userOverride,
+                        onValueChange = {userOverride = problem.sanitizeInput?.invoke(it).toString() },
+                        label = { Text("Optional Input") },
+                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
+                    )
                 }
-            )
+
+                Button(
+                    onClick = {
+                        answer = problem.calculate?.invoke(userOverride.ifEmpty { null })
+                        eulersAnswer = problem.calculateEulers?.invoke(userOverride.ifEmpty { null })
+                    },
+                    content = {
+                        Text(text = "Calculate" )
+                    },
+                    modifier = Modifier.padding(6.dp)
+                )
+            }
+
             AnimatedVisibility(visible = (answer != null)) {
                 Column{
                     SelectionContainer {

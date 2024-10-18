@@ -19,16 +19,14 @@ val problemData = listOf(
     ),
     ProblemObject(
         title = "Problem 3: Largest Prime Factor",
-        calculate = {
-            return@ProblemObject calcLargestPrimeFactor(600851475143UL)
+        calculate = {  override: Any? ->
+            return@ProblemObject calcLargestPrimeFactor(override.toString().toULongOrNull() ?: 600851475143UL)
         },
         calculateEulers = { override: Any? ->
-            if (override != null) {
-                if (override is ULong){
-                    return@ProblemObject eulersCalcLargestPrimeFactor(override)
-                }
-            }
-            return@ProblemObject eulersCalcLargestPrimeFactor(600851475143UL)
+            return@ProblemObject eulersCalcLargestPrimeFactor(override.toString().toULongOrNull() ?: 600851475143UL)
+        },
+        sanitizeInput = { input ->
+            return@ProblemObject input?.take(20)?.filter { it.isDigit() }
         }
     )
 )

@@ -2,7 +2,7 @@ package com.ryandwren.project_euler_solutions.problems
 
 data class ProblemObject(
     val title: String,
-    val calculate: () -> Any? = {},
+    val calculate: ((Any?) -> Any?)? = null,
     val calculateEulers: ((Any?) -> Any?)? = null,
     //var alternativeInputOne: Any? = null,
     //var alternativeInputTwo: Any? = null,
@@ -10,4 +10,5 @@ data class ProblemObject(
     //var eulersAnswer: String? = null,
     //var timeToCompleteAnswer: Int? = null,
     //var timeToCompleteEulersAnswer: Int? = null,
+    val sanitizeInput: ((String?) -> String?)? = null
     )
