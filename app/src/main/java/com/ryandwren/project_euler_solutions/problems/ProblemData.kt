@@ -21,6 +21,9 @@ val problemData = listOf(
         title = "Problem 3: Largest Prime Factor",
         calculate = {
             return@ProblemObject calcLargestPrimeFactor(600851475143UL)
+        },
+        calculateEulers = {
+            return@ProblemObject eulersCalcLargestPrimeFactor(600851475143UL)
         }
     )
 )

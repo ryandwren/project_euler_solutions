@@ -71,11 +71,12 @@ fun problemCard(problem: ProblemObject){
 
     AnimatedVisibility(visible = expanded) {
         var answer: Any? by remember{ mutableStateOf(null) }
-        //var eulersAnswer: Int? by remember{ mutableStateOf(null) }
+        var eulersAnswer: Any? by remember{ mutableStateOf(null) }
         Column {
             Button(
                 onClick = {
                     answer = problem.calculate.invoke()
+                    eulersAnswer = problem.calculateEulers?.invoke()
                 },
                 content = {
                     Text(text = "Calculate" )
@@ -86,9 +87,11 @@ fun problemCard(problem: ProblemObject){
                     SelectionContainer {
                         Text(text = "My answer: " + answer.toString())
                     }
-                    /*SelectionContainer {
-                        Text(text = "Eulers answer: " + eulersAnswer.toString())
-                    }*/
+                    AnimatedVisibility(visible = (eulersAnswer != null)) {
+                        SelectionContainer {
+                            Text(text = "Eulers answer: " + eulersAnswer.toString())
+                        }
+                    }
                 }
             }
         }
