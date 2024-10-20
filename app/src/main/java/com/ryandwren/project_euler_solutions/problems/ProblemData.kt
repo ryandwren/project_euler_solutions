@@ -28,5 +28,11 @@ val problemData = listOf(
         sanitizeInput = { input ->
             return@ProblemObject input?.take(20)?.filter { it.isDigit() }
         }
+    ),
+    ProblemObject(
+        title = "Problem 4: Largest Palindrome Product",
+        calculate = {
+            return@ProblemObject calcLargestPalindrome(3)
+        }
     )
 )
