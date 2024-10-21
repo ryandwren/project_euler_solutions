@@ -8,15 +8,16 @@ two 2-digit numbers is 9009 = 91 times 99.
 Find the largest palindrome made from the product of two 3-digit numbers.
 */
 
-fun calcLargestPalindrome(digits: Int): Int{
-    val fullDigits = (10.0.pow(digits))-1 //the highest number in that digit range. EX: 3 digits = 999.
+fun calcLargestPalindrome(digits: Int): Int {
+    val fullDigits =
+        (10.0.pow(digits)) - 1 //the highest number in that digit range. EX: 3 digits = 999.
     val max = ((fullDigits.toFloat()).pow(2)).toInt()
     var nextPal = findNextPalindrome(max)
 
-    while (true){
-        var divider = fullDigits
-        while (nextPal.rem((divider).toInt()) != 0){
-            if (nextPal.div(divider).toInt() > fullDigits){
+    while (true) {
+        var divider = fullDigits //start at top and work our way down.
+        while (nextPal.rem((divider).toInt()) != 0) {
+            if (nextPal.div(divider).toInt() > fullDigits) {
                 //This pal won't work, reset and check next pal.
                 divider = fullDigits
                 nextPal = findNextPalindrome(nextPal)
@@ -26,62 +27,44 @@ fun calcLargestPalindrome(digits: Int): Int{
         }
 
         //Now we have a number divisible by our pal, but need to check if it's divider is in range.
-        val remainder = (nextPal/(divider)).toInt().toString()
-        if(remainder.length != digits){
-            //Not a valid divider (both need to be user specified digits long)
-            //Reset and check next pal. since while block loops again we don't need to reset divider.
+        val secondDivider = (nextPal / (divider)).toInt().toString()
+        if (secondDivider.length != digits) {
+            //Not a valid divider (both need to be the user specified digits long)
+            //Reset and check next pal. Since while block loops again we don't need to reset divider.
             nextPal = findNextPalindrome(nextPal)
         } else {
-            break
+            break //use break instead of setting while variable to false to leave the loop.
         }
     }
 
     return nextPal
 }
 
-fun findNextPalindrome(num: Int): Int{
+fun findNextPalindrome(num: Int): Int {
     var nextPal = ""
-    val input = num.toString()
-    val inputIsEvenLength = input.length.rem(2) == 0
-
-
-
-    val halfLength = num.toString().length /2 //will round down for odd length numbers
+    val halfLength = num.toString().length / 2 //will round down for odd length numbers
+    val inputIsEvenLength = num.toString().length.rem(2) == 0
 
     //If num is odd length we need to include the center digit to subtract then mirror.
     val firstHalf = num.toString().substring(0, (halfLength + if (inputIsEvenLength) 0 else 1))
-    val firstHalfNextPal = firstHalf.toInt() -1
+    val firstHalfNextPal = firstHalf.toInt() - 1
 
-    if (inputIsEvenLength){
-        //input is even, we can split and mirror.
-        if (firstHalfNextPal.toString().length < firstHalf.length){
-            //we've lost a digit and need to adapt since mirroring will drop 2 digits.
-            //Just add a 9 in between the first and end half.
-            nextPal = firstHalfNextPal.toString() + "9" + firstHalfNextPal.toString().reversed()
-        } else {
-            nextPal = firstHalfNextPal.toString() + firstHalfNextPal.toString().reversed()
-        }
-
+    //If we subtracted 1 from a 0 and lost a digit we need to prevent loosing 2 digits on rebuild.
+    nextPal = if (firstHalfNextPal.toString().length < firstHalf.length) {
+        //Even length pals will loose 2 digits and we need to add one missing digit as a 9. Odds don't have this issue.
+        firstHalfNextPal.toString() + if (inputIsEvenLength) "9" else "" + firstHalfNextPal.toString().reversed()
     } else {
-        //input is odd, we need to mirror the beginning of the half ignoring the last digit which we fold on.
-        //When we subtract 1 from the halfNextPal we are ok with loosing a digit.
-        if (firstHalfNextPal.toString().length < firstHalf.length){
-            //we lost 1 digit and can just flip to get next palindrome. Ex: 10001 is now 9999.
-            nextPal = firstHalfNextPal.toString() + firstHalfNextPal.toString().reversed()
-        } else {
-            //Because we have the center digit as part of the first half we need to flip on the last digit of the first half so its not duplicated.
-            nextPal = firstHalfNextPal.toString() + firstHalfNextPal.toString().substring(0, firstHalfNextPal.toString().length-1).reversed()
-        }
+        //When building our mirror we need to flip around the center digit for odd length pals without duplicating it.
+        firstHalfNextPal.toString() +
+                if (inputIsEvenLength)
+                    firstHalfNextPal.toString().reversed()
+                else
+                    firstHalfNextPal.toString().substring(0, firstHalfNextPal.toString().length - 1).reversed()
     }
 
-    //Error for odd numbers, the center digit is being ignored, when next pal is changing center digit not two on either side of it.
-    //Ex: 10101 next pal is 10001 not what this produces which is 919. (validate??)
-    /*var nextPal = num.toString().replaceRange(0, firstHalf.length, firstHalf)
-    nextPal = nextPal.replaceRange(num.toString().length - firstHalf.length, num.toString().length, firstHalf.reversed())*/
-
-    //todo if nextPal greater then input num call findNextPal again
-    //This happens with the first input generated from the max val.
-    while (nextPal.toInt() > num){
+    //If nextPal greater then input num call findNextPal again.
+    //Happens with the first input generated from the max val.
+    while (nextPal.toInt() > num) {
         nextPal = findNextPalindrome(nextPal.toInt()).toString()
     }
 

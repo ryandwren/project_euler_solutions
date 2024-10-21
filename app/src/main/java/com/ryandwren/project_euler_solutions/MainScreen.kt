@@ -42,14 +42,14 @@ fun MainScreen(){
     ) {
         for (problem in problemData){
             item {
-                problemCard(problem)
+                ProblemCard(problem)
             }
         }
     }
 }
 
 @Composable
-fun problemCard(problem: ProblemObject){
+fun ProblemCard(problem: ProblemObject){
     var expanded by remember { mutableStateOf(false) }
     Row (
         horizontalArrangement = Arrangement.SpaceBetween,
