@@ -31,8 +31,13 @@ val problemData = listOf(
     ),
     ProblemObject(
         title = "Problem 4: Largest Palindrome Product",
-        calculate = {
-            return@ProblemObject calcLargestPalindrome(3)
+        calculate = { override: Any? ->
+            return@ProblemObject calcLargestPalindrome(override.toString().toIntOrNull() ?: 3)
+
+        },
+        sanitizeInput = { input ->
+            //This is number of digits so past 9 digits is too big.
+            return@ProblemObject input?.take(1)?.filter { it.isDigit() }
         }
     )
 )
