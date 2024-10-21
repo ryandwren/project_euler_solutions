@@ -1,6 +1,5 @@
 package com.ryandwren.project_euler_solutions.problems
 
-import androidx.core.util.toHalf
 import kotlin.math.pow
 
 /*
@@ -10,12 +9,34 @@ Find the largest palindrome made from the product of two 3-digit numbers.
 */
 
 fun calcLargestPalindrome(digits: Int): Int{
-    val max = (((10.0.pow(digits))-1).pow(2)).toInt()
+    val fullDigits = (10.0.pow(digits))-1 //the highest number in that digit range. EX: 3 digits = 999.
+    val max = ((fullDigits.toFloat()).pow(2)).toInt()
+    var nextPal = findNextPalindrome(max)
 
-    findNextPalindrome(max)
+    while (true){
+        var divider = fullDigits
+        while (nextPal.rem((divider).toInt()) != 0){
+            if (nextPal.div(divider).toInt() > fullDigits){
+                //This pal won't work, reset and check next pal.
+                divider = fullDigits
+                nextPal = findNextPalindrome(nextPal)
+            } else {
+                divider--
+            }
+        }
 
+        //Now we have a number divisible by our pal, but need to check if it's divider is in range.
+        val remainder = (nextPal/(divider)).toInt().toString()
+        if(remainder.length != digits){
+            //Not a valid divider (both need to be user specified digits long)
+            //Reset and check next pal. since while block loops again we don't need to reset divider.
+            nextPal = findNextPalindrome(nextPal)
+        } else {
+            break
+        }
+    }
 
-    return 10
+    return nextPal
 }
 
 fun findNextPalindrome(num: Int): Int{
