@@ -35,6 +35,9 @@ val problemData = listOf(
             return@ProblemObject calcLargestPalindrome(override.toString().toIntOrNull() ?: 3)
 
         },
+        calculateEulers = { override: Any? ->
+            return@ProblemObject eulersCalcLargestPalindrome(override.toString().toIntOrNull() ?: 3)
+        },
         sanitizeInput = { input ->
             //This is number of digits so past 9 digits is too big.
             return@ProblemObject input?.take(1)?.filter { it.isDigit() }
