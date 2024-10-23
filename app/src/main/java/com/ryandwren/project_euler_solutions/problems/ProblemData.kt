@@ -42,5 +42,11 @@ val problemData = listOf(
             //This is number of digits so past 9 digits is too big.
             return@ProblemObject input?.take(1)?.filter { it.isDigit() }
         }
+    ),
+    ProblemObject(
+        title = "Question 5: Smallest Multiple",
+        calculate = {
+            return@ProblemObject calcSmallestMultiple(20)
+        }
     )
 )
