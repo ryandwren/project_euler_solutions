@@ -10,11 +10,11 @@ By considering the terms in the Fibonacci sequence whose values do not exceed fo
  */
 
 
-fun calcEvenFibonacciNumbers():Int{
+fun solveP2EvenFibonacciNumbers():Int{
     val firstTerm = 1
     val secondTerm = 2
     val max = 4000000
-    var listOfEvenFibonacciNums = arrayListOf(secondTerm)
+    val listOfEvenFibonacciNums = arrayListOf(secondTerm)
 
     val stack = ArrayDeque(listOf(firstTerm,secondTerm))
 

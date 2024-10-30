@@ -8,7 +8,7 @@ two 2-digit numbers is 9009 = 91 times 99.
 Find the largest palindrome made from the product of two 3-digit numbers.
 */
 
-fun calcLargestPalindrome(digits: Int): Int {
+fun solveP4LargestPalindrome(digits: Int): Int {
     val fullDigits = (10.0.pow(digits)) - 1 //the highest number in that digit range. EX: 3 = 999.
     val max = ((fullDigits.toFloat()).pow(2)).toInt()
     var nextPal = findNextPalindrome(max)
@@ -69,7 +69,7 @@ fun findNextPalindrome(num: Int): Int {
     return nextPal.toInt()
 }
 
-fun eulersCalcLargestPalindrome(digits: Int): Int{
+fun solveP4EulersLargestPalindrome(digits: Int): Int{
     //todo this only works with 3 digits.
     val fullDigits = (10.0.pow(digits)) - 1 //the highest number in that digit range. EX: 3 = 999.
 
@@ -105,7 +105,7 @@ fun eulersIsPalindrome(number:Int):Boolean{
     var num = number
     var reversedNum = 0
     while (num > 0){
-        reversedNum = 10 * reversedNum + num.rem(10) //todo this give strange results when number ends in 0.
+        reversedNum = 10 * reversedNum + num.rem(10) //todo this drops a digit when number ends in 0.
         num /= 10
     }
     return number == reversedNum

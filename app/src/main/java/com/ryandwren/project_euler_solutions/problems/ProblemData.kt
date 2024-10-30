@@ -4,7 +4,7 @@ val problemData = listOf(
     ProblemObject(
         title = "Problem 1: Multiples of 3 or 5",
         calculate = {
-            return@ProblemObject solveTotalMultiples(
+            return@ProblemObject solveP1TotalMultiples(
                 firstMultiple = 3,
                 secondMultiple = 5,
                 limitNumber = 1000
@@ -14,16 +14,16 @@ val problemData = listOf(
     ProblemObject(
         title = "Problem 2: Even Fibonacci Numbers",
         calculate = {
-            return@ProblemObject calcEvenFibonacciNumbers()
+            return@ProblemObject solveP2EvenFibonacciNumbers()
         }
     ),
     ProblemObject(
         title = "Problem 3: Largest Prime Factor",
         calculate = {  override: Any? ->
-            return@ProblemObject calcLargestPrimeFactor(override.toString().toULongOrNull() ?: 600851475143UL)
+            return@ProblemObject solveP3LargestPrimeFactor(override.toString().toULongOrNull() ?: 600851475143UL)
         },
         calculateEulers = { override: Any? ->
-            return@ProblemObject eulersCalcLargestPrimeFactor(override.toString().toULongOrNull() ?: 600851475143UL)
+            return@ProblemObject solveP3EulersCalcLargestPrimeFactor(override.toString().toULongOrNull() ?: 600851475143UL)
         },
         sanitizeInput = { input ->
             return@ProblemObject input?.take(20)?.filter { it.isDigit() }
@@ -32,11 +32,11 @@ val problemData = listOf(
     ProblemObject(
         title = "Problem 4: Largest Palindrome Product",
         calculate = { override: Any? ->
-            return@ProblemObject calcLargestPalindrome(override.toString().toIntOrNull() ?: 3)
+            return@ProblemObject solveP4LargestPalindrome(override.toString().toIntOrNull() ?: 3)
 
         },
         calculateEulers = { override: Any? ->
-            return@ProblemObject eulersCalcLargestPalindrome(override.toString().toIntOrNull() ?: 3)
+            return@ProblemObject solveP4EulersLargestPalindrome(override.toString().toIntOrNull() ?: 3)
         },
         sanitizeInput = { input ->
             //This is number of digits so past 9 digits is too big.
@@ -46,7 +46,7 @@ val problemData = listOf(
     ProblemObject(
         title = "Question 5: Smallest Multiple",
         calculate = {
-            return@ProblemObject calcSmallestMultiple(20)
+            return@ProblemObject solveP5SmallestMultiple(20)
         }
     )
 )

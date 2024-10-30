@@ -15,7 +15,7 @@ Solved by Ryan Wren for the first time on 8-30-24
 */
 
 
-fun solveTotalMultiples(firstMultiple:Int, secondMultiple:Int, limitNumber:Int): Int{
+fun solveP1TotalMultiples(firstMultiple:Int, secondMultiple:Int, limitNumber:Int): Int{
     val listOfFirstMultiples = buildMultiplesList(firstMultiple, limitNumber)
     val listOfSecondMultiples = buildMultiplesList(secondMultiple, limitNumber)
     val listOfMutualMultiples = calculateMutualMultiples(firstMultiple, listOfSecondMultiples, limitNumber)

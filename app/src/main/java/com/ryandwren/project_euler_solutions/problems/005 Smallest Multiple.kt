@@ -7,7 +7,7 @@ Question 5: Smallest Multiple
 What is the smallest positive number that is evenly divisible (divisible with no remainder) by all of the numbers from 1 to 20?
 */
 
-fun calcSmallestMultiple(digits: Int): Int {
+fun solveP5SmallestMultiple(digits: Int): Int {
     //To be evenly divisible we can multiply all numbers up to digits.
     //To get smallest num we can remove any num that divides into a bigger number on the list.
     val divisors = findArrayOfDivisors(digits)
