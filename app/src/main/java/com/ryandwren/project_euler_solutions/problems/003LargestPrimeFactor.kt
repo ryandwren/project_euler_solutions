@@ -18,6 +18,10 @@ A prime factor is a list of prime numbers which multiplied by itself add up to t
 
 
 fun solveP3LargestPrimeFactor(num: ULong): ULong{
+    return findPrimeFactorizationList(num).last()
+}
+
+fun findPrimeFactorizationList(num: ULong): ArrayList<ULong>{
     var divider = 2UL
     val factorialList = ArrayList<ULong>()
     var placeholder = num
@@ -27,7 +31,7 @@ fun solveP3LargestPrimeFactor(num: ULong): ULong{
             //This is the last divisible number for the input value. Can be the original input number if its prime.
             factorialList.add(divider)
             //return factorialList.toString()
-            return factorialList[factorialList.size-1]
+            return factorialList
 
         }
         if (placeholder.rem(divider) == 0UL){
