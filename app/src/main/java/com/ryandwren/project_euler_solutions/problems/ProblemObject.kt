@@ -2,6 +2,7 @@ package com.ryandwren.project_euler_solutions.problems
 
 data class ProblemObject(
     val title: String,
+    val problemStatement: String? = null,
     val calculate: ((Any?) -> Any?)? = null,
     val calculateEulers: ((Any?) -> Any?)? = null,
     //var alternativeInputOne: Any? = null,

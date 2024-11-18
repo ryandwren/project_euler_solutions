@@ -77,6 +77,10 @@ fun ProblemCard(problem: ProblemObject){
         var userOverride by remember { mutableStateOf("") }
         Column {
 
+            Row{
+                problem.problemStatement?.let { Text(it) }
+            }
+
             Row(
                 verticalAlignment = Alignment.CenterVertically
             ) {
