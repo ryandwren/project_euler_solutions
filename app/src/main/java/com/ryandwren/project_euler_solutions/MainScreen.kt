@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.requiredWidth
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.text.selection.SelectionContainer
@@ -75,7 +76,7 @@ fun ProblemCard(problem: ProblemObject){
         var answer: Any? by remember{ mutableStateOf(null) }
         var eulersAnswer: Any? by remember{ mutableStateOf(null) }
         var userOverride by remember { mutableStateOf("") }
-        Column {
+        Column(modifier = Modifier.padding(horizontal = 24.dp)) {
 
             Row{
                 problem.problemStatement?.let { Text(it) }
@@ -89,7 +90,8 @@ fun ProblemCard(problem: ProblemObject){
                         value = userOverride,
                         onValueChange = {userOverride = problem.sanitizeInput?.invoke(it).toString() },
                         label = { Text("Optional Input") },
-                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
+                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                        modifier = Modifier.requiredWidth(200.dp)
                     )
                 }
 
